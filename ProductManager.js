@@ -1,4 +1,7 @@
-const fs = require("fs");
+
+import fs from "fs"
+
+// const fs = require("fs");
 
 class ProductManager {
   #products;
@@ -68,14 +71,18 @@ class ProductManager {
     }
   };
 
-    getProductById(id) {
-        const producto = this.producto.find(p => p.id === id);
-        if (producto) {
-            return producto;
-        } else {
-            console.error("Producto no encontrado.");
+      getProductById = async (id) => {
+        try {
+          let producto = await this.readFile();
+          producto = producto.find((producto) => producto.id === id);
+          if (!producto) {
+            return(`El producto no se encuentra`);
+          }
+          return (producto);
+        } catch (error) {
+          throw new Error(error);
         }
-    }
+      };
 
   updateProduct = async (id, updatedProduct) => {
     try {
@@ -113,7 +120,7 @@ class ProductManager {
         `${this.#path}`,
         JSON.stringify(productos, null, "\t"),
         "utf-8"
-      );
+      ); 
     } catch (error) {
       throw new Error("Ocurrio un error intentando eliminar el producto");
     }
