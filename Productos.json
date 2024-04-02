@@ -1,0 +1,92 @@
+[
+	{
+		"id": 1,
+		"title": "nombre1",
+		"description": "informacion1",
+		"price": 456,
+		"thumbnail": "sin imagen",
+		"code": 201,
+		"stock": 4230
+	},
+	{
+		"id": 2,
+		"title": "nombre2",
+		"description": "informacion2",
+		"price": 345,
+		"thumbnail": "sin imagen",
+		"code": 202,
+		"stock": 342
+	},
+	{
+		"id": 3,
+		"title": "nombre3",
+		"description": "informacion3",
+		"price": 200,
+		"thumbnail": "sin imagen",
+		"code": 29039,
+		"stock": 1
+	},
+	{
+		"id": 4,
+		"title": "nombre4",
+		"description": "informacion4",
+		"price": 200,
+		"thumbnail": "sin imagen",
+		"code": 78204,
+		"stock": 6
+	},
+	{
+		"id": 5,
+		"title": "nombre5",
+		"description": "informacion5",
+		"price": 200,
+		"thumbnail": "sin imagen",
+		"code": 624305,
+		"stock": 10
+	},
+	{
+		"id": 6,
+		"title": "nombre6",
+		"description": "informacion6",
+		"price": 7987,
+		"thumbnail": "sin imagen",
+		"code": 924506,
+		"stock": 90
+	},
+	{
+		"id": 7,
+		"title": "nombre7",
+		"description": "informacion7",
+		"price": 2000,
+		"thumbnail": "sin imagen",
+		"code": 34207,
+		"stock": 1306
+	},
+	{
+		"id": 8,
+		"title": "nombre8",
+		"description": "informacion8",
+		"price": 2600,
+		"thumbnail": "sin imagen",
+		"code": 4208434,
+		"stock": 1066
+	},
+	{
+		"id": 9,
+		"title": "nombre9",
+		"description": "informacion9",
+		"price": 3200,
+		"thumbnail": "sin imagen",
+		"code": 2343209,
+		"stock":43434
+	},
+	{
+		"id": 10,
+		"title": "nombre10",
+		"description": "informacion10",
+		"price": 534,
+		"thumbnail": "sin imagen",
+		"code": 6433235,
+		"stock": 4345
+	}
+]
