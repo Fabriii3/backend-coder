@@ -1,43 +1,22 @@
-// const express = require("express")
 import express from "express";
-import ProductManager from "../ProductManager.js";
+import productsRouter from "./products.router.js";
+import cartsRouter from "./carts.router.js";
+import { __dirname } from "./utils.js";
 
 const app = express();
 
-app.get("/products", async (req, resp) => {
-  try {
-    const pm = new ProductManager();
-    const { limit } = req.query;
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-    const productos = await pm.readFile();
+app.use("/static",express.static(__dirname + "/public"))
 
-    if (limit) {
-      const productosLimit = productos.slice(0, parseInt(limit));
-      return resp.send(productosLimit);
-    }
 
-    return resp.send(productos);
-  } catch (error) {
-    throw new Error(error);
-  }
-});
-
-app.get("/products/:pid", async (req, resp) => {
-  try {
-    const pm = new ProductManager();
-    const { pid } = req.params;
-
-    const producto = await pm.getProductById(parseInt(pid));
-
-    return resp.send(producto);
-  } catch (error) {
-    throw new Error(error);
-  }
-});
+app.use("/api/products", productsRouter);
+app.use("/api/carts", cartsRouter);
 
 app.listen(8080, (error) => {
   if (error) {
-    console.log(error);
+    throw new Error(error);
   }
-  console.log("escuchando al puerto 8080....");
+  console.log("Escuchando al puerto 8080");
 });

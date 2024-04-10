@@ -1,75 +1,95 @@
+  import fs from "fs";
 
-import fs from "fs"
-
-// const fs = require("fs");
-
-class ProductManager {
-  #products;
-  #path;
-  constructor() {
-    this.#products = [];
-    this.#path = "./Productos.json";
-  }
-  /**
-   *
-   * @param {string} title
-   * @param {string} description
-   * @param {number} price
-   * @param {string} thumbnail
-   * @param {string} code
-   * @param {number} stock
-   */
-
-  readFile = async () => {
-    try {
-      if (this.#path) {
-        const leerArchivo = await fs.promises.readFile(
-          `${this.#path}`,
-          "utf-8"
-        );
-        return JSON.parse(leerArchivo);
-      }
-    } catch (error) {
-      throw new Error("No se pudo leer el archivo");
+  export default class ProductManager {
+    #products;
+    #path;
+    constructor() {
+      this.#products = [];
+      this.#path = "./Productos.json";
     }
-  };
+    /**
+     *
+     * @param {string} title
+     * @param {string} description
+     * @param {number} price
+     * @param {string} thumbnail
+     * @param {string} code
+     * @param {number} stock
+     * @param {string} category
+     * @param {boolean} status
+     */
+    readFile = async () => {
+      try {
+        if (this.#path) {
+          let products = await fs.promises.readFile(`${this.#path}`, "utf-8");
 
-  addProduct = async (title, description, price, thumbnail, code, stock) => {
-    const producto = {
-      id: this.#getNewId(),
+          return JSON.parse(products);
+        }
+      } catch (error) {
+        throw new Error(error);
+      }
+    };
+
+    addProduct = async (
       title,
       description,
       price,
       thumbnail,
       code,
       stock,
-    };
-    if (!title || !description || !price || !thumbnail || !code || !stock) {
-      throw new Error("Por favor complete todo los campos");
-    }
-    const validarProducto = this.#products.find(
-      (producto) => producto.code === code
-    );
-    if (validarProducto) {
-      throw new Error("El producto ya se encuentra agregado");
-    }
-    await this.#products.push(producto);
-    await fs.promises.writeFile(
-      `${this.#path}`,
-      JSON.stringify(this.#products, null, "\t"),
-      "utf-8"
-    );
-    console.log("Producto agregado exitosamente");
-  };
+      category,
+    ) => {
+      try {
+        this.#products = await this.readFile();
 
-  getProducts = async () => {
-    try {
-      const productos = await this.readFile();
-      console.log(productos);
-    } catch (error) {
-      throw new Error("Error al intentar recuperar los datos");
-    }
-  };
+        const newProduct = {
+          id: this.#products.length + 1,
+          title,
+          description,
+          price,
+          thumbnail,
+          code,
+          stock,
+          category,
+        };
+        if (
+          !title ||
+          !description ||
+          !price ||
+          !code ||
+          !stock ||
+          !category
+        ) {
+          throw new Error("Por favor complete todo los campos");
+        }
+        const validateProduct = this.#products.find(
+          (product) => product.code === code
+        );
+        if (validateProduct) {
+          throw new Error("El producto ya se encuentra agregado...");
+        }
+
+        this.#products.push(newProduct);
+        await fs.promises.writeFile(
+          `${this.#path}`,
+          JSON.stringify(this.#products, null, "\t"),
+          "utf-8"
+        );
+        console.log("Producto agregado exitosamente!!");
+        return newProduct;
+      } catch (error) {
+        throw new Error(error);
+      }
+    };
+
+    getProducts = async () => {
+      try {
+        const productos = await this.readFile();
+        console.log(productos);
+      } catch (error) {
+        throw new Error("Error al intentar recuperar los datos");
+      }
+    };
 
       getProductById = async (id) => {
         try {
